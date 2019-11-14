@@ -1,0 +1,34 @@
+h1 {
+  letter-spacing: 8px;
+  font-weight: bold;
+  font-size: 75px;
+}
+
+.grid-container {
+  display: inline-grid;
+  /* grid-template-columns: 75px 75px 75px 75px 75px 75px 75px 75px 75px; */
+  grid-template-rows: 75px 75px 75px 75px 75px 75px 75px 75px 75px;
+}
+
+.grid-item {
+  height: 75px;
+  width: 75px;
+  border: 1px solid grey;
+  text-align: center;
+  background-color: #212529;
+  color: red;
+}
+
+.container {
+  text-align: center;
+  margin-top: 75px;
+}
+
+.jumbotron {
+  margin-top: 75px;
+}
+
+#board3, #board6 {
+  border-right: solid 5px white;
+
+}

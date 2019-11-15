@@ -1,146 +1,74 @@
-
-export function Sudoku(array) {
-  this.array = array;
+export function WeekdayCalculator(date) {
+  this.date = date;
 }
 
-Sudoku.prototype.checkColumns = function() {
-  for(let row=0; row < this.array.length; row++){
-    this.array[row].sort();
-    //console.log(this.array[row]);
-    for(let col=0;col<this.array.length-1; col++){
-      if(this.array[row][col]>=this.array[row][col+1]){
-        return false;
-      }
-    }
+WeekdayCalculator.prototype.weekdays = function(weekday) {
+  if (weekday === "Sunday"){
+    return 0;
   }
-  return true;
-
+  if (weekday === "Monday"){
+    return 1;
+  }
+  if (weekday === "Tuesday"){
+    return 2;
+  }
+  if (weekday === "Wednesday"){
+    return 3;
+  }
+  if (weekday === "Thursday"){
+    return 4;
+  }
+  if (weekday === "Friday"){
+    return 5;
+  }
+  if (weekday === "Saturday"){
+    return 6;
+  }
 };
 
-Sudoku.prototype.checkRows = function()
-{
-  let tempArray = [];
-  for(let col=0; col<this.array.length; col++)
-  {
-    for(let row=0; row<this.array.length; row++)
-    {
-      tempArray.push(this.array[row][col])
-    }
-
-    tempArray.sort();
-    for(let idx=0; idx<tempArray.length-1;idx++)
-    {
-      if(tempArray[idx]>=tempArray[idx+1])
-      {
-        console.log(tempArray[idx],tempArray[idx+1]);
-        return false;
-      }
-
-      tempArray.length = 0;
-    }
+WeekdayCalculator.prototype.years = function(year) {
+  if (year >= 1800 && year <= 1899) {
+    return weekdays("Friday");
   }
-  return true;
-
+  if (year >= 1900 && year <= 1999) {
+    return weekdays("Wednesday");
+  }
+  if (year >= 2000 && year <= 2099) {
+    return weekdays("Tuesday");
+  }
+  if (year >= 2100 && year <= 2199) {
+    return weekdays("Sunday");
+  }
 };
 
-
-
-Sudoku.prototype.check3x3 = function()
-{
-
-  let idx = 0;
-  let tempArray = [];
-  while(idx<3){
-
-    for(let row=0; row<9;row++)
-    {
-      if(idx===0 && row<3)
-      {
-        for(let col=0; col<3; col++)
-        {
-          tempArray.push(this.arrray[row][col]);
-
-
-        }
-        console.log(tempArray);
-        if(row===2)
-        {
-          for(let i=0; i<tempArray.length-1; i++)
-          {
-            if(tempArray[i]>=tempArray[i+1]){
-              return false;
-            }
-          }
-
-        }
-        tempArray.length=0;
-        console.log(idx,row);
-      }
-
-/*
-
-       if(idx===1 && row>=3 && row<6)
-      {
-        for(let col=3; col<6; col++)
-        {
-          tempArray.push(this.arrray[row][col]);
-        }
-        if(row===5)
-        {
-          for(let i=0; i<tempArray.length-1; i++)
-          {
-            if(tempArray[i]>=tempArray[i+1]){
-              return false;
-            }
-          }
-          tempArray.length=0;
-          console.log(idx,row);
-        }
-      }
-
-
-
-      if(idx===2 && row>=6 && row<9)
-      {
-        for(let col=6; col<9; col++)
-        {
-          tempArray.push(this.arrray[row][col]);
-        }
-        if(row===8)
-        {
-          for(let i=0; i<tempArray.length-1; i++)
-          {
-            if(tempArray[i]>=tempArray[i+1]){
-              return false;
-            }
-          }
-          tempArray.length=0;
-          console.log(idx,row);
-        }
-      }*/
-
-
-      idx++;
-    }
+WeekdayCalculator.prototype.calculateDate = function() {
+  var getLastTwoDigitsOfYear = parseInt(this.date.getFullYear().substr(-2));
+  var firstStep = getLastTwoDigitsOfYear / 12;
+  var secondStep = getLastTwoDigitsOfYear - 12*6;
+  var thirdStep = secondStep / 4;
+  var fourthStep = years(parseInt(this.date.getFullYear()));
+  var fifthStep = years(fourthStep);
+  let sum = firstStep + secondStep +thirdStep +fifthStep;
+  let sixStep = sum -(sum/7)*7;
+  if(sixStep===0){
+    return "Sunday";
   }
-  return true;
-}
-  // let tempArray = [];
-  //
-  //   for(let col=0;col<3;col++)
-  //   {
-  //     for(let row=0;row<3;row++)
-  //     {
-  //       console.log(this.array[col][row]);
-  //       tempArray.push(this.array[col][row]);
-  //
-  //       // if array[row][col] === array[row][col];
-  //     }
-  //   }
-  // //clear
-  //   console.log(tempArray);
-  //
-  // }
-
-  // for(let row=0; row.array.length;row++)
-  // {
+  else if(sixStep===1){
+    return "Monday";
+  }
+  else if(sixStep===2){
+    return "Tuesday";
+  }
+  else if(sixStep===3){
+    return "Wednesday";
+  }
+  else if(sixStep===4){
+    return "Thursday";
+  }
+  else if(sixStep===5){
+    return "Friday";
+  }
+  else if(sixStep===6){
+    return "Saturday";
+  }
+};
